@@ -1,7 +1,3 @@
-# znax
-ZNAX: Ranked 5/36 at #CPCRetroDev 2015
-
-
 # ZNAX / [Shinra](http://pulko.mandy.pagesperso-orange.fr/shinra/)
 
 ### Fifth ranked at [#CPCRetroDev 2015 Game Creation Contest](http://cpcretrodev.byterealms.com/contest-en/cpcretrodev-2015/)
