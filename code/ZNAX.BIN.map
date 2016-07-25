@@ -1,0 +1,583 @@
+
+Files:
+  MENU.o:  .text 300(3cd), .romcalls 7d4e(7), .music 7d60(289) hex
+  howto.o:  .text 6cd(2c5) hex
+  keyboard.o:  .text 992(119) hex
+  GAME.o:  .text aab(2c42) hex
+  exomizer.o:  .text 36ed(bf) hex
+  SPRTEST.o:  .text 37c0(2600) hex
+  ArkosPlayer.o:  .text 5dc0(6cf) hex
+  hiscore.o:  .text 648f(18bf) hex
+
+
+Section mapping (numbers in hex):
+------------------------------
+  00000300 .text  (size 7ce9)
+           00000300 - 000006cd MENU.o(.text)
+           000006cd - 00000992 howto.o(.text)
+           00000992 - 00000aab keyboard.o(.text)
+           00000aab - 000036ed GAME.o(.text)
+           000036ed - 000037ac exomizer.o(.text)
+           000037c0 - 00005dc0 SPRTEST.o(.text)
+           00005dc0 - 0000648f ArkosPlayer.o(.text)
+           0000648f - 00007d4e hiscore.o(.text)
+           00007d4e - 00007d55 MENU.o(.romcalls)
+           00007d60 - 00007fe9 MENU.o(.music)
+
+
+Symbols of .text:
+  modendloop: local reloc, value 0x508, size 0
+  NOSTOP: local reloc, value 0x428, size 0
+  STOP: local reloc, value 0x424, size 0
+   MAIN sync10: local reloc, value 0x3ec, size 0
+  delta: local reloc, value 0x6cc, size 0
+  rouge2: local reloc, value 0x4da, size 0
+  violet2: local reloc, value 0x4d1, size 0
+   violet m2: local reloc, value 0x4b8, size 0
+  gris2: local reloc, value 0x489, size 0
+   rastersuivant lineb: local reloc, value 0x465, size 0
+   _restart clear2b: local reloc, value 0x337, size 0
+  MC_SOUND_REGISTER: local abs, value 0xffffbd34, size 0
+  rouge3: local reloc, value 0x4ec, size 0
+  violet3: local reloc, value 0x4e3, size 0
+  gris3: local reloc, value 0x49d, size 0
+  RastersCarres: local reloc, value 0x627, size 0
+  gris: local reloc, value 0x3f5, size 0
+  touchebas: local reloc, value 0x5f0, size 0
+  endloopnext: local reloc, value 0x50b, size 0
+  rouge4: local reloc, value 0x4fe, size 0
+  violet4: local reloc, value 0x4f5, size 0
+   rouge2 wt: local reloc, value 0x4e0, size 0
+  violet: local reloc, value 0x4a7, size 0
+  CAS_IN_DIRECT: local abs, value 0xffffbc83, size 0
+  KM_RESET: local abs, value 0xffffbb03, size 0
+   violet2 attente: local reloc, value 0x4d7, size 0
+  jaune: local reloc, value 0x493, size 0
+   rastersuivant nextline: local reloc, value 0x456, size 0
+   *tmp000000000*: local reloc, value 0x50b, size 0
+   *current pc dummy*: local reloc, value 0x4c1, size 0
+  SCR_SET_INK: local abs, value 0xffffbc32, size 0
+   _restart vbl: local reloc, value 0x35f, size 0
+  toucherien: local reloc, value 0x602, size 0
+  CAS_IN_OPEN: local abs, value 0xffffbc77, size 0
+   rouge4 wa: local reloc, value 0x504, size 0
+  magenta: local reloc, value 0x3fc, size 0
+   _restart clear1: local reloc, value 0x326, size 0
+  PPI_A: local abs, value 0xfffff400, size 0
+  GA: local abs, value 0x7f00, size 0
+   touchebas okb: local reloc, value 0x5fc, size 0
+   violet4 wb: local reloc, value 0x4fb, size 0
+   NOSTOP boucleraster: local reloc, value 0x436, size 0
+   _restart clear2: local reloc, value 0x33c, size 0
+  SCR_SET_BORDER: local abs, value 0xffffbc38, size 0
+  KM_WAIT_CHAR: local abs, value 0xffffbb06, size 0
+   rouge3 wc: local reloc, value 0x4f2, size 0
+  PPI_C: local abs, value 0xfffff600, size 0
+  shad: local reloc, value 0x644, size 0
+   violet3 att: local reloc, value 0x4e9, size 0
+   rouge wqit: local reloc, value 0x4ce, size 0
+  rastersuivant: local reloc, value 0x451, size 0
+   NOSTOP wait: local reloc, value 0x42f, size 0
+  touchehaut: local reloc, value 0x5dd, size 0
+  _start: global reloc, value 0x300, size 0
+  _restart: global reloc, value 0x30c, size 0
+  shadsave: local reloc, value 0x50c, size 0
+  rouge: local reloc, value 0x4c8, size 0
+  lemenu: local reloc, value 0x46b, size 0
+   NOSTOP line: local reloc, value 0x44c, size 0
+  toucherelache: local reloc, value 0x603, size 0
+  toucheespace: local reloc, value 0x5d6, size 0
+   _restart sync5: local reloc, value 0x355, size 0
+  CAS_IN_CLOSE: local abs, value 0xffffbc7a, size 0
+  SCR_SET_MODE: local abs, value 0xffffbc0e, size 0
+  modif: local reloc, value 0x47d, size 0
+  CRTC_REG: local abs, value 0xffffbc00, size 0
+   gris2 x: local reloc, value 0x48f, size 0
+   gris3 y: local reloc, value 0x4a3, size 0
+  TXT_Play: local reloc, value 0x610, size 0
+   touchehaut ok: local reloc, value 0x5e9, size 0
+  MC_WAIT_FLYBACK: local abs, value 0xffffbd19, size 0
+   jaune l: local reloc, value 0x499, size 0
+  CRTC_VAL: local abs, value 0xffffbd00, size 0
+  MAIN: local reloc, value 0x3ea, size 0
+   _restart transition: local reloc, value 0x35d, size 0
+  loop: local reloc, value 0x738, size 0
+  page1: local reloc, value 0x802, size 0
+  page2: local reloc, value 0x8ca, size 0
+  MC_SOUND_REGISTER: local abs, value 0xffffbd34, size 0
+  page3: local reloc, value 0x92e, size 0
+  CAS_IN_DIRECT: local abs, value 0xffffbc83, size 0
+  KM_RESET: local abs, value 0xffffbb03, size 0
+  line: local reloc, value 0x736, size 0
+   menu black: local reloc, value 0x7aa, size 0
+   keyToMenu wfk: local reloc, value 0x77f, size 0
+  SCR_SET_INK: local abs, value 0xffffbc32, size 0
+  CAS_IN_OPEN: local abs, value 0xffffbc77, size 0
+  HOWTOPLAY_RUN: global reloc, value 0x6cd, size 0
+   menu sync10: local reloc, value 0x7ef, size 0
+  PPI_A: local abs, value 0xfffff400, size 0
+  GA: local abs, value 0x7f00, size 0
+  SCR_SET_BORDER: local abs, value 0xffffbc38, size 0
+  KM_WAIT_CHAR: local abs, value 0xffffbb06, size 0
+  PPI_C: local abs, value 0xfffff600, size 0
+   keyToMenu sync4: local reloc, value 0x784, size 0
+   menu sync5: local reloc, value 0x7b2, size 0
+  menu: local reloc, value 0x7a4, size 0
+  nextpage: local reloc, value 0x78f, size 0
+  keyToMenu: local reloc, value 0x74b, size 0
+  CAS_IN_CLOSE: local abs, value 0xffffbc7a, size 0
+  SCR_SET_MODE: local abs, value 0xffffbc0e, size 0
+   menu sync7: local reloc, value 0x7cf, size 0
+  CRTC_REG: local abs, value 0xffffbc00, size 0
+  MC_WAIT_FLYBACK: local abs, value 0xffffbd19, size 0
+  CRTC_VAL: local abs, value 0xffffbd00, size 0
+  again: local reloc, value 0x731, size 0
+  TXT_PTR: local reloc, value 0xaa7, size 0
+  MC_SOUND_REGISTER: local abs, value 0xffffbd34, size 0
+  TXT_BUFFER: global reloc, value 0xaa3, size 0
+  guard: local reloc, value 0xaa2, size 0
+  txtprint: local reloc, value 0xa6b, size 0
+  Right_pressed: local reloc, value 0xa79, size 0
+  Space_pressed: local reloc, value 0xa54, size 0
+  CAS_IN_DIRECT: local abs, value 0xffffbc83, size 0
+  KM_RESET: local abs, value 0xffffbb03, size 0
+  get_text: global reloc, value 0xa0f, size 0
+  process_input: global reloc, value 0x9e9, size 0
+  done: local reloc, value 0xa5f, size 0
+  SCR_SET_INK: local abs, value 0xffffbc32, size 0
+  CAS_IN_OPEN: local abs, value 0xffffbc77, size 0
+  PPI_A: local abs, value 0xfffff400, size 0
+  GA: local abs, value 0x7f00, size 0
+  gt2: local reloc, value 0xa1e, size 0
+  npr: global reloc, value 0xa0c, size 0
+  dpr: global reloc, value 0xa09, size 0
+  rpr: global reloc, value 0xa05, size 0
+  upr: global reloc, value 0xa01, size 0
+  lpr: global reloc, value 0x9f8, size 0
+  sppr: global reloc, value 0x9ef, size 0
+  SCR_SET_BORDER: local abs, value 0xffffbc38, size 0
+  KM_WAIT_CHAR: local abs, value 0xffffbb06, size 0
+  Dest_Address: local reloc, value 0xaa9, size 0
+  PPI_C: local abs, value 0xfffff600, size 0
+  nproffset: global abs, value 0x1d, size 0
+  uproffset: global abs, value 0x12, size 0
+  rproffset: global abs, value 0x16, size 0
+  dproffset: global abs, value 0x1a, size 0
+  lproffset: global abs, value 0x9, size 0
+  Down_pressed: local reloc, value 0xa94, size 0
+  Up_pressed: local reloc, value 0xa86, size 0
+  Left_pressed: local reloc, value 0xa60, size 0
+   Down_pressed suite: local reloc, value 0xa9f, size 0
+   Up_pressed suite: local reloc, value 0xa91, size 0
+  Wait_release: local reloc, value 0x9ba, size 0
+  SCAN_LINE: local reloc, value 0x992, size 0
+  CAS_IN_CLOSE: local abs, value 0xffffbc7a, size 0
+  SCR_SET_MODE: local abs, value 0xffffbc0e, size 0
+  CRTC_REG: local abs, value 0xffffbc00, size 0
+  MC_WAIT_FLYBACK: local abs, value 0xffffbd19, size 0
+  CRTC_VAL: local abs, value 0xffffbd00, size 0
+   keySpace enddisp: local reloc, value 0xd99, size 0
+   keySpace plop: local reloc, value 0xd62, size 0
+  keyUp: local reloc, value 0xe19, size 0
+  colorloop: local reloc, value 0xade, size 0
+  SetupScreenLoop: local reloc, value 0xace, size 0
+  Num1: local reloc, value 0xf33, size 0
+  Num2: local reloc, value 0xf35, size 0
+   keySpace modmini2: local reloc, value 0xd94, size 0
+   keySpace pasadd2: local reloc, value 0xce9, size 0
+  game_over: local reloc, value 0xc32, size 0
+  DispNumber: local reloc, value 0xb5b, size 0
+  NumberBuffer: local reloc, value 0x36de, size 0
+  MC_SOUND_REGISTER: local abs, value 0xffffbd34, size 0
+  SetupScreen2: global reloc, value 0xac8, size 0
+   keySpace pasadd3: local reloc, value 0xcf0, size 0
+  Num2Dec: local reloc, value 0xf1b, size 0
+   SetupScreenLoop sync3: local reloc, value 0xad1, size 0
+  GameGrid: local reloc, value 0x367a, size 0
+   keySpace kspaceend: local reloc, value 0xdeb, size 0
+   keySpace binit: local reloc, value 0xd74, size 0
+   keySpace pasadd4: local reloc, value 0xcf7, size 0
+  keyRight: local reloc, value 0xe61, size 0
+  keyLeft: local reloc, value 0xe41, size 0
+  snextdigit: local reloc, value 0xb4b, size 0
+  nextdigit: local reloc, value 0xb2f, size 0
+   mod wait: local reloc, value 0xaf1, size 0
+  cset: local reloc, value 0xaeb, size 0
+  CAS_IN_DIRECT: local abs, value 0xffffbc83, size 0
+  KM_RESET: local abs, value 0xffffbb03, size 0
+  EraseOldSprite: local reloc, value 0xe9f, size 0
+   keySpace line: local reloc, value 0xd78, size 0
+  subtime: local reloc, value 0x36ec, size 0
+   Fin sync5: local reloc, value 0xc02, size 0
+  keySpace: local reloc, value 0xc54, size 0
+  GetSpriteValue: local reloc, value 0xebb, size 0
+   GAME_RUN newline: local reloc, value 0xb98, size 0
+   DispNumber line: local reloc, value 0xb6e, size 0
+  DispScore: local reloc, value 0xb23, size 0
+   mod done: local reloc, value 0xb1d, size 0
+  score: global reloc, value 0x36e8, size 0
+   game_over sync6: local reloc, value 0xc40, size 0
+   keySpace sync7: local reloc, value 0xd65, size 0
+   keySpace bini: local reloc, value 0xd3a, size 0
+  noKey: local reloc, value 0xc53, size 0
+   *current pc dummy*: local reloc, value 0xaf3, size 0
+   GridSprite ok: local reloc, value 0xf06, size 0
+   keySpace noblock: local reloc, value 0xdd4, size 0
+   mod black: local reloc, value 0xafe, size 0
+  SCR_SET_INK: local abs, value 0xffffbc32, size 0
+   keySpace xnequal: local reloc, value 0xc66, size 0
+  keyDown: local reloc, value 0xdf2, size 0
+  CAS_IN_OPEN: local abs, value 0xffffbc77, size 0
+  GAME_RUN: global reloc, value 0xb83, size 0
+   GAME_RUN enddisp: local reloc, value 0xbb6, size 0
+   keySpace red1: local reloc, value 0xd3c, size 0
+  PPI_A: local abs, value 0xfffff400, size 0
+  GA: local abs, value 0x7f00, size 0
+   keySpace red2: local reloc, value 0xd54, size 0
+   keySpace plusgrand2: local reloc, value 0xcc9, size 0
+   keySpace pluspetit2: local reloc, value 0xcc5, size 0
+  SCR_SET_BORDER: local abs, value 0xffffbc38, size 0
+  KM_WAIT_CHAR: local abs, value 0xffffbb06, size 0
+   keySpace red3: local reloc, value 0xd5b, size 0
+  temps: local reloc, value 0x36ea, size 0
+  Couleurs: local reloc, value 0x35ef, size 0
+  PPI_C: local abs, value 0xfffff600, size 0
+   GridSprite addsproffset: local reloc, value 0xf14, size 0
+   keySpace mod: local reloc, value 0xd7b, size 0
+   keySpace pasadd: local reloc, value 0xce2, size 0
+   keySpace plusgrand: local reloc, value 0xcb7, size 0
+   keySpace pluspetit: local reloc, value 0xcb3, size 0
+  UpdateGrid: local reloc, value 0xece, size 0
+   GAME_RUN mod: local reloc, value 0xb9d, size 0
+   DispNumber adoffset: local reloc, value 0xb62, size 0
+  mod: local reloc, value 0xaeb, size 0
+   keySpace newline: local reloc, value 0xd76, size 0
+   keySpace Sameline: local reloc, value 0xdb7, size 0
+  keyRelease: local reloc, value 0xe80, size 0
+   GAME_RUN line: local reloc, value 0xb9a, size 0
+  fondu: local reloc, value 0x3601, size 0
+  CAS_IN_CLOSE: local abs, value 0xffffbc7a, size 0
+  SCR_SET_MODE: local abs, value 0xffffbc0e, size 0
+  GridSprite: global reloc, value 0xee2, size 0
+   keySpace modof: local reloc, value 0xd45, size 0
+  CRTC_REG: local abs, value 0xffffbc00, size 0
+  SelX: local reloc, value 0x36e6, size 0
+  CursorX: local reloc, value 0x36e4, size 0
+   keySpace modifmini: local reloc, value 0xd8d, size 0
+  SelY: local reloc, value 0x36e7, size 0
+   Fin pasfini: local reloc, value 0xc29, size 0
+  CursorY: local reloc, value 0x36e5, size 0
+   game_over black: local reloc, value 0xc38, size 0
+   Fin ok: local reloc, value 0xc22, size 0
+   mod ok: local reloc, value 0xb06, size 0
+   SetupScreen black: local reloc, value 0xab9, size 0
+  IMGBACK: local reloc, value 0xf3e, size 0
+  MC_WAIT_FLYBACK: local abs, value 0xffffbd19, size 0
+  CRTC_VAL: local abs, value 0xffffbd00, size 0
+   keySpace lin: local reloc, value 0xd3e, size 0
+  Fin: local reloc, value 0xc00, size 0
+  SetupScreen: global reloc, value 0xaab, size 0
+  exo_gettingbits: local reloc, value 0x3794, size 0
+  exo_getbits: local reloc, value 0x3791, size 0
+  exo_get4bits: local reloc, value 0x3704, size 0
+  exo_mapbasebits: local abs, value 0x100, size 0
+  exo_lenght: local reloc, value 0x3770, size 0
+  exo_literalcopy: local reloc, value 0x3743, size 0
+  deexo: global reloc, value 0x36ed, size 0
+  exo_mainloop: local reloc, value 0x3727, size 0
+  exo_node1: local reloc, value 0x3702, size 0
+  exo_getpair: local reloc, value 0x3778, size 0
+  exo_initbits: local reloc, value 0x36f8, size 0
+  exo_goforit: local reloc, value 0x3761, size 0
+  exo_setbit: local reloc, value 0x3714, size 0
+  exo_getbit: local reloc, value 0x379f, size 0
+  exo_continue: local reloc, value 0x3747, size 0
+  exo_getindex: local reloc, value 0x3730, size 0
+  FONT16_A: global abs, value 0xc, size 0
+  a: local reloc, value 0x3b40, size 0
+  FONT16_B: global abs, value 0xd, size 0
+  b: local reloc, value 0x3b80, size 0
+  FONT16_C: global abs, value 0xe, size 0
+  c: local reloc, value 0x3bc0, size 0
+  trois: local reloc, value 0x3980, size 0
+  GAME_SPRITES: global reloc, value 0x41c0, size 0
+  FONT16_D: global abs, value 0xf, size 0
+  d: local reloc, value 0x3c00, size 0
+  huit: local reloc, value 0x3ac0, size 0
+  SPR_PAD: local reloc, value 0x3816, size 0
+  FONT16_E: global abs, value 0x10, size 0
+  e: local reloc, value 0x3c40, size 0
+  quatre: local reloc, value 0x39c0, size 0
+   SPRITES_NEWLINE changepage: local reloc, value 0x37ce, size 0
+  FONT16_F: global abs, value 0x11, size 0
+  f: local reloc, value 0x3c80, size 0
+  FONT16_G: global abs, value 0x12, size 0
+  g: local reloc, value 0x3cc0, size 0
+  SPRITES_DRAW: global reloc, value 0x37dd, size 0
+  FONT16_H: global abs, value 0x13, size 0
+  h: local reloc, value 0x3d00, size 0
+  six: local reloc, value 0x3a40, size 0
+  deux: local reloc, value 0x3940, size 0
+  FONT16_I: global abs, value 0x14, size 0
+  i: local reloc, value 0x3d40, size 0
+  FONT16_J: global abs, value 0x15, size 0
+  j: local reloc, value 0x3d80, size 0
+  FONT16_K: global abs, value 0x16, size 0
+  k: local reloc, value 0x3dc0, size 0
+  FONT16_L: global abs, value 0x17, size 0
+  l: local reloc, value 0x3e00, size 0
+  FONT16_M: global abs, value 0x18, size 0
+  m: local reloc, value 0x3e40, size 0
+  FONT16_N: global abs, value 0x19, size 0
+  n: local reloc, value 0x3e80, size 0
+  SPR_BEGIN: global reloc, value 0x3840, size 0
+  FONT16_O: global abs, value 0x1a, size 0
+  o: local reloc, value 0x3ec0, size 0
+  zero: local reloc, value 0x38c0, size 0
+  FONT16_P: global abs, value 0x1b, size 0
+  FONT16_0: global abs, value 0x2, size 0
+  p: local reloc, value 0x3f00, size 0
+  FONT16_Q: global abs, value 0x1c, size 0
+  FONT16_1: global abs, value 0x3, size 0
+  q: local reloc, value 0x3f40, size 0
+  cinq: local reloc, value 0x3a00, size 0
+  rest1: local reloc, value 0x37df, size 0
+  FONT16_R: global abs, value 0x1d, size 0
+  FONT16_2: global abs, value 0x4, size 0
+  r: local reloc, value 0x3f80, size 0
+   SPRITES_NEWLINE page2: local reloc, value 0x37d3, size 0
+  FONT16_S: global abs, value 0x1e, size 0
+  FONT16_3: global abs, value 0x5, size 0
+  s: local reloc, value 0x3fc0, size 0
+  DIGITS: global reloc, value 0x5c80, size 0
+  SPR_END: local reloc, value 0x5dc0, size 0
+  FONT16_T: global abs, value 0x1f, size 0
+  FONT16_4: global abs, value 0x6, size 0
+  t: local reloc, value 0x4000, size 0
+  sept: local reloc, value 0x3a80, size 0
+  SPRITES_PRINT_TEXT: global reloc, value 0x37f3, size 0
+  FONT16_U: global abs, value 0x20, size 0
+  FONT16_5: global abs, value 0x7, size 0
+  FONT16_ESPACE: global abs, value 0x1, size 0
+  u: local reloc, value 0x4040, size 0
+  espace: local reloc, value 0x3880, size 0
+  MAIN_CODE: global reloc, value 0x37c0, size 0
+  SPRITES_NEWLINE: global reloc, value 0x37c0, size 0
+  FONT16_V: global abs, value 0x21, size 0
+  FONT16_6: global abs, value 0x8, size 0
+  v: local reloc, value 0x4080, size 0
+  neuf: local reloc, value 0x3b00, size 0
+  FONT16_W: global abs, value 0x22, size 0
+  FONT16_7: global abs, value 0x9, size 0
+  w: local reloc, value 0x40c0, size 0
+  FONT16_X: global abs, value 0x23, size 0
+  FONT16_8: global abs, value 0xa, size 0
+  x: local reloc, value 0x4100, size 0
+  SCRWIDTH: global reloc, value 0x37cf, size 0
+  FONT16_Y: global abs, value 0x24, size 0
+  FONT16_9: global abs, value 0xb, size 0
+  y: local reloc, value 0x4140, size 0
+  FONT16_Z: global abs, value 0x25, size 0
+  z: local reloc, value 0x4180, size 0
+  FONT16_EXCLAM: global abs, value 0x0, size 0
+  exclam: global reloc, value 0x3840, size 0
+  un: local reloc, value 0x3900, size 0
+  PLY_PSGReg0: local reloc, value 0x6115, size 0
+  PLY_PSGReg1: local reloc, value 0x6116, size 0
+  PLY_Transposition1: local reloc, value 0x5e87, size 0
+  PLY_NoNewTransposition1: local reloc, value 0x5de7, size 0
+  PLY_PSGReg2: local reloc, value 0x6117, size 0
+  PLY_SpecialTrack_WaitCounter: local reloc, value 0x5e3b, size 0
+  PLY_Transposition2: local reloc, value 0x5eec, size 0
+  PLY_NoNewTransposition2: local reloc, value 0x5def, size 0
+  Player: local reloc, value 0x5dc0, size 0
+  PLY_PSGReg3: local reloc, value 0x6118, size 0
+  PLY_SendRegisters: local reloc, value 0x602b, size 0
+  PLY_Transposition3: local reloc, value 0x5f51, size 0
+  PLY_NoNewTransposition3: local reloc, value 0x5df7, size 0
+  PLY_UseFirmwareInterruptions: local abs, value 0x0, size 0
+  PLY_UseFades: local abs, value 0x0, size 0
+  PLY_ReadTrack_Pitch_End: local reloc, value 0x62f3, size 0
+  PLY_PS_S_SoundOn_ArpeggioEnd: local reloc, value 0x62c8, size 0
+  PLY_PS_Independent: local reloc, value 0x6259, size 0
+  PLY_PS_HD_Shift: local reloc, value 0x6217, size 0
+  PLY_PS_Hard_LoopOrIndependent: local reloc, value 0x624e, size 0
+  PLY_PS_S_SBN_Sound: local reloc, value 0x6173, size 0
+  PLY_PS_Hard: local reloc, value 0x6182, size 0
+  PLY_PSGReg4: local reloc, value 0x6119, size 0
+  PLY_Track1_PlayNoForward: local reloc, value 0x6025, size 0
+  PLY_Track2_PlayNoForward: local reloc, value 0x5ff1, size 0
+  PLY_Track3_PlayNoForward: local reloc, value 0x5fc0, size 0
+  PLY_Track3_InstrumentResetPT: local reloc, value 0x5f88, size 0
+  PLY_Track3_InstrumentSpeed: local reloc, value 0x5fbe, size 0
+  PLY_Track3_NewInstrument: local reloc, value 0x5f6b, size 0
+  PLY_Track3_PitchAdd: local reloc, value 0x5f9c, size 0
+  PLY_Track2_InstrumentsTablePT: local reloc, value 0x5f08, size 0
+  PLY_Track2_InstrumentResetPT: local reloc, value 0x5f23, size 0
+  PLY_Track2_InstrumentSpeedCpt: local reloc, value 0x5fe7, size 0
+  PLY_Track2_InstrumentSpeed: local reloc, value 0x5fef, size 0
+  PLY_Track2_NewInstrument: local reloc, value 0x5f06, size 0
+  PLY_Track2_PitchAdd: local reloc, value 0x5fcd, size 0
+  PLY_Track1_InstrumentResetPT: local reloc, value 0x5ebe, size 0
+  PLY_Track1_InstrumentSpeed: local reloc, value 0x6023, size 0
+  PLY_Track1_NewInstrument: local reloc, value 0x5ea1, size 0
+  PLY_Track1_PitchAdd: local reloc, value 0x6001, size 0
+  PLY_Speed: local reloc, value 0x5f90, size 0
+  PLY_Height: local reloc, value 0x5e36, size 0
+  PLY_NoNewHeight: local reloc, value 0x5e14, size 0
+  PLY_Track3_PT: local reloc, value 0x5f30, size 0
+  PLY_Track2_PT: local reloc, value 0x5ecb, size 0
+  PLY_Track1_PT: local reloc, value 0x5e66, size 0
+  PLY_Linker_PT: local reloc, value 0x5dd0, size 0
+  PLY_HeightEnd: local reloc, value 0x5e38, size 0
+  PLY_SpeedEnd: local reloc, value 0x5f92, size 0
+  PLY_PS_S_SBN_NoNoise: local reloc, value 0x6162, size 0
+  PLY_PSGReg5: local reloc, value 0x611a, size 0
+  PLY_PSGReg13_Code: local reloc, value 0x6100, size 0
+  PLY_Track3_Note: local reloc, value 0x5fae, size 0
+  PLY_Track3_Volume: local reloc, value 0x5faf, size 0
+  PLY_Track3_SameVolume: local reloc, value 0x5f44, size 0
+  PLY_Track2_Note: local reloc, value 0x5fdf, size 0
+  PLY_Track2_SameVolume: local reloc, value 0x5edf, size 0
+  PLY_Track1_Note: local reloc, value 0x6013, size 0
+  PLY_Track1_Volume: local reloc, value 0x6014, size 0
+  PLY_Track1_SameVolume: local reloc, value 0x5e7a, size 0
+  PLY_SpecialTrack_NoEscapeCode: local reloc, value 0x5e4f, size 0
+  PLY_RetrigValue: local abs, value 0xfe, size 0
+  PLY_UseBasicSoundEffectInterface: local abs, value 0x0, size 0
+  PLY_UseCPCMachine: local abs, value 0x1, size 0
+  PLY_PSGReg6: local reloc, value 0x611b, size 0
+  PLY_PS_Hard_NoRetrig: local reloc, value 0x6195, size 0
+  PLY_PSGReg13_Retrig: local reloc, value 0x6101, size 0
+  PLY_PS_S_SoundOn_NoPitch: local reloc, value 0x62bb, size 0
+  PLY_PS_HD_NoSoftwarePitch: local reloc, value 0x6245, size 0
+  PLY_PS_SD_NoHardwarePitch: local reloc, value 0x61f4, size 0
+  PLY_PSGReg8: local reloc, value 0x611c, size 0
+  PLY_Track3_Pitch: local reloc, value 0x5f99, size 0
+  PLY_Track2_Pitch: local reloc, value 0x5fca, size 0
+  PLY_Track1_Pitch: local reloc, value 0x5ffe, size 0
+  PLY_PS_CalculateFrequency_TestManualFrequency: local reloc, value 0x629d, size 0
+  PLY_PS_CalculateFrequency: local reloc, value 0x62ab, size 0
+  PLY_PSGReg9: local reloc, value 0x611e, size 0
+   *tmp000000004*: local reloc, value 0x6012, size 0
+   *tmp000000002*: local reloc, value 0x5fde, size 0
+   *tmp000000000*: local reloc, value 0x5fad, size 0
+   *current pc dummy*: local reloc, value 0x6488, size 0
+  PLY_PS_I_SoundOn: local reloc, value 0x6266, size 0
+  PLY_PS_S_SoundOn: local reloc, value 0x613b, size 0
+  PLY_Track3_NoNoteGiven: local reloc, value 0x5f8b, size 0
+  PLY_Track2_NoNoteGiven: local reloc, value 0x5f26, size 0
+  PLY_Track1_NoNoteGiven: local reloc, value 0x5ec1, size 0
+  PLY_PSGReg10: local reloc, value 0x6120, size 0
+  PLY_Stop: global reloc, value 0x6480, size 0
+  PLY_PSGReg11: local reloc, value 0x6121, size 0
+  PLY_PT_SpecialTrack_EndData: local reloc, value 0x5e59, size 0
+  PLY_PSGReg12: local reloc, value 0x6122, size 0
+  PLY_Track3_WaitCounter: local reloc, value 0x5f2b, size 0
+  PLY_Track2_WaitCounter: local reloc, value 0x5ec6, size 0
+  PLY_Track1_WaitCounter: local reloc, value 0x5e61, size 0
+  PLY_SongNotOver: local reloc, value 0x5ddf, size 0
+  PLY_ReadTrack_ReadParameters: local reloc, value 0x62e5, size 0
+  PLY_PSGReg13: local reloc, value 0x6123, size 0
+  PLY_UseSoundEffects: local abs, value 0x0, size 0
+  PLY_ReadTrack_Wait: local reloc, value 0x6308, size 0
+  PLY_PS_SD_Shift: local reloc, value 0x61c3, size 0
+  PLY_PS_HardwareDependent: local reloc, value 0x6204, size 0
+  PLY_PS_S_SecondByteNeeded: local reloc, value 0x6152, size 0
+  PLY_PSGRegistersArray_End: local reloc, value 0x6124, size 0
+  PLY_PlaySound: local reloc, value 0x6124, size 0
+  PLY_Track3_Instrument: local reloc, value 0x5fb0, size 0
+  PLY_Track3_InstrumentsTablePT: local reloc, value 0x5f6d, size 0
+  PLY_Track3_InstrumentSpeedCpt: local reloc, value 0x5fb6, size 0
+  PLY_Track3_SavePTInstrument: local reloc, value 0x5f60, size 0
+  PLY_Track3_NewInstrument_SetWait: local reloc, value 0x5f8d, size 0
+  PLY_Track2_Instrument: local reloc, value 0x5fe1, size 0
+  PLY_Track2_SavePTInstrument: local reloc, value 0x5efb, size 0
+  PLY_Track2_NewInstrument_SetWait: local reloc, value 0x5f28, size 0
+  PLY_Track1_Instrument: local reloc, value 0x6015, size 0
+  PLY_Track1_InstrumentsTablePT: local reloc, value 0x5ea3, size 0
+  PLY_Track1_InstrumentSpeedCpt: local reloc, value 0x601b, size 0
+  PLY_Track1_SavePTInstrument: local reloc, value 0x5e96, size 0
+  PLY_Track1_NewInstrument_SetWait: local reloc, value 0x5ec3, size 0
+  PLY_SpecialTrack_Speed: local reloc, value 0x5e56, size 0
+  PLY_SpecialTrack_NewWait: local reloc, value 0x5e5b, size 0
+  PLY_SpecialTrack_Wait: local reloc, value 0x5e5e, size 0
+  PLY_SpecialTrack_PT: local reloc, value 0x5e40, size 0
+  PLY_HeightCpt: local reloc, value 0x5dcb, size 0
+  PLY_SpeedCpt: local reloc, value 0x5dc5, size 0
+  PLY_Init: global reloc, value 0x642b, size 0
+  PLY_ReadTrack_NoOptimisation_EscapeCode: local reloc, value 0x62fa, size 0
+  PLY_FrequencyTable: local reloc, value 0x630b, size 0
+  PLY_PS_SD_Noise: local reloc, value 0x61f8, size 0
+  PLY_Track2_Volume: local reloc, value 0x5fe0, size 0
+  PLY_UseMSXMachine: local abs, value 0x0, size 0
+  PLY_Track3_NoNewPitch: local reloc, value 0x5f4c, size 0
+  PLY_Track2_NoNewPitch: local reloc, value 0x5ee7, size 0
+  PLY_Track1_NoNewPitch: local reloc, value 0x5e82, size 0
+  PLY_PSGRegistersArray: local reloc, value 0x6115, size 0
+  PLY_SystemFriendly: local abs, value 0x0, size 0
+  PLY_Play: global reloc, value 0x5dc1, size 0
+   *tmp000000005*: local reloc, value 0x6012, size 0
+   *tmp000000003*: local reloc, value 0x5fde, size 0
+   *tmp000000001*: local reloc, value 0x5fad, size 0
+  PLY_ReadTrack: local reloc, value 0x62d7, size 0
+  PLY_SaveSpecialTrack: local reloc, value 0x5e22, size 0
+  PLY_NewSpecialTrack: local reloc, value 0x5e17, size 0
+  PLY_NoNewSpecialTrack: local reloc, value 0x5e1f, size 0
+  PLY_Digidrum: local reloc, value 0x5dc0, size 0
+  PLY_ReadTrack_FullOptimisation: local reloc, value 0x62fe, size 0
+  PLY_PS_I_SkipSoftwareFrequencyCalculation: local reloc, value 0x6279, size 0
+   delay plip: local reloc, value 0x73a9, size 0
+   delay plop: local reloc, value 0x73a7, size 0
+  RASTERLOOP: local reloc, value 0x734f, size 0
+  nodisp: local reloc, value 0x727f, size 0
+  scoreloop: local reloc, value 0x7254, size 0
+  Num1: local reloc, value 0x73c7, size 0
+  TEST_SCORE_DATA: local reloc, value 0x73fb, size 0
+  Num2: local reloc, value 0x73c9, size 0
+  INTROSCR: local reloc, value 0x7441, size 0
+  buffer: local reloc, value 0x7431, size 0
+  MC_SOUND_REGISTER: local abs, value 0xffffbd34, size 0
+  scraddress: local reloc, value 0x7437, size 0
+  Num2Dec: local reloc, value 0x73af, size 0
+  last: local reloc, value 0x722b, size 0
+  lowest: local reloc, value 0x742b, size 0
+  CAS_IN_DIRECT: local abs, value 0xffffbc83, size 0
+  KM_RESET: local abs, value 0xffffbb03, size 0
+   RASTERLOOP white: local reloc, value 0x7397, size 0
+  loadmenu: global reloc, value 0x7339, size 0
+  SECOND_SCORE: local reloc, value 0x7407, size 0
+  insert_here: local reloc, value 0x721d, size 0
+  compare: local reloc, value 0x7200, size 0
+   RASTERLOOP sync18: local reloc, value 0x7351, size 0
+  delay: local reloc, value 0x73a7, size 0
+  DISPLAY: local reloc, value 0x7245, size 0
+   *current pc dummy*: local reloc, value 0x7310, size 0
+   transitionOut black: local reloc, value 0x72c6, size 0
+   keyToMenu wfk: local reloc, value 0x72bc, size 0
+  SCR_SET_INK: local abs, value 0xffffbc32, size 0
+  SET_PAL: local reloc, value 0x73d2, size 0
+  CAS_IN_OPEN: local abs, value 0xffffbc77, size 0
+   backToMenu sync10: local reloc, value 0x72e5, size 0
+  PPI_A: local abs, value 0xfffff400, size 0
+  GA: local abs, value 0x7f00, size 0
+  SCR_SET_BORDER: local abs, value 0xffffbc38, size 0
+  KM_WAIT_CHAR: local abs, value 0xffffbb06, size 0
+  PIC: local reloc, value 0x648f, size 0
+  PPI_C: local abs, value 0xfffff600, size 0
+  transitionOut: local reloc, value 0x72c1, size 0
+  the_end: local reloc, value 0x7437, size 0
+  backToMenu: local reloc, value 0x72ce, size 0
+  keyToMenu: local reloc, value 0x7288, size 0
+  CAS_IN_CLOSE: local abs, value 0xffffbc7a, size 0
+  SCR_SET_MODE: local abs, value 0xffffbc0e, size 0
+   backToMenu sync16: local reloc, value 0x7329, size 0
+  nothing: global reloc, value 0x73a6, size 0
+  CRTC_REG: local abs, value 0xffffbc00, size 0
+  MC_WAIT_FLYBACK: local abs, value 0xffffbd19, size 0
+  CRTC_VAL: local abs, value 0xffffbd00, size 0
+  hiscore_RUN: global reloc, value 0x7193, size 0
+  EXIT: local reloc, value 0x7d4e, size 0
+  music: global reloc, value 0x7d60, size 0
+
+Linker symbols:

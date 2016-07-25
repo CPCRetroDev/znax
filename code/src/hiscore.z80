@@ -1,0 +1,438 @@
+	GLOBAL hiscore_RUN
+
+	INCLUDE src/CPC.z80
+	INCLUDE keyboard.macros
+
+PIC	INCBIN obj/HISCORES.exo
+
+hiscore_RUN
+	CALL PLY_Stop
+; Entry point for calling from menu
+	LD DE,0x8080
+	LD HL, PIC
+	CALL deexo
+
+	CRTC 1, 26
+
+	EI
+	; CRTC 2: 50 > 40
+	HALT
+	LD B,14
+	DJNZ $
+	CRTC 0,63+50-40
+	LD B,12
+	DJNZ $
+	CRTC 2, 40
+	CRTC 0,63
+	; END CRTC TRANSITION
+	DI
+
+	; Set the correct width in the sprite drawing code
+	LD HL,52 - 0x4000
+	LD (SCRWIDTH),HL
+
+	; If coming from game, check if a new highscore was made
+	LD HL,(score)
+	EX DE,HL ; DE=new score
+	LD HL,(lowest) ; HL = old score
+
+	CCF
+	SBC HL,DE ; old - new
+	JR NC,DISPLAY
+
+	call SET_PAL
+
+	; Player gets to the high score table!
+
+	; Convert the score to text and print it towards the bottom
+	LD HL,(score)
+	LD DE,buffer
+	CALL Num2Dec
+
+	LD IX,buffer
+	LD DE,0x8604 + 8
+	CALL SPRITES_PRINT_TEXT
+
+	; TODO insert the score into the score list
+	LD HL,TEST_SCORE_DATA
+	LD BC,lowest - TEST_SCORE_DATA
+compare
+	PUSH HL
+		; Get the score from current line in DE
+		LD E,(HL)
+		INC HL
+		LD D,(HL)
+
+		; Get the new score in HL
+		LD HL,(score)
+		CCF
+		; HL = HL - DE
+		SBC HL,DE
+	POP HL
+
+	; HL is < DE, so we should insert the new score at this position
+	JR NC,insert_here
+
+	; Move HL to the next line
+	PUSH BC
+		LD BC,SECOND_SCORE - TEST_SCORE_DATA
+		ADD HL,BC
+	POP BC
+
+	; BC holds the size of the block to copy (number of score lines * size of a line)
+	; Here we substract one line from it
+	PUSH HL
+		LD HL,TEST_SCORE_DATA - SECOND_SCORE
+		ADD HL,BC
+		LD B,H
+		LD C,L
+	POP HL
+
+	JR compare
+
+insert_here
+	; Insert a score into the score table
+	; Input: HL = pointer to the first score entry to shift down (aka where to insert)
+	;        BC = number of bytes to be shifted down
+
+	; If inserting in the last position, there is nothing to copy...
+	LD A,B
+	ADD C
+	JR Z,last
+
+	PUSH HL
+
+	; We move the existing scores using LDDR. So we need pointers to the END of the old and new
+	; zones. We always start by moving the 4th entry onto the 5th, etc. So we point DE to 5, HL to 4,
+	; and use the previously computed BC
+	LD HL,lowest-1
+	LD DE,the_end-1
+	lddr
+
+	; Get back the initial HL, it is the entry we need to overwrite.
+	POP HL
+
+last
+	; Write the current score to it
+	LD A,(score)
+	LD (HL),A
+	INC HL
+	LD A,(score+1)
+	LD (HL),A
+	INC HL
+
+	; Now we can ask the player for his name, we know where to insert it
+	PUSH HL
+
+	; Let the user enter its name
+	LD HL,0x8604 - 6*52+12
+	CALL get_text
+
+	; Copy the retrieved name to the score entry.
+	POP DE
+	LD HL,TXT_BUFFER
+	LD BC, 3
+	LDIR
+
+DISPLAY
+	; Reset the score for next time
+	LD HL,0
+	LD (score),HL
+
+	; Display the best scores
+
+	LD HL,TEST_SCORE_DATA
+	LD B,5
+	LD IY,scraddress
+scoreloop
+	PUSH BC
+
+	; DE = score value
+	LD E,(HL)
+	INC HL
+	LD D,(HL)
+	INC HL
+
+	PUSH HL ; Stack = ptr to print address
+	LD H,D ; HL = score value
+	LD L,E
+
+	; DE = ptr to buffer
+	POP DE
+	PUSH DE
+	INC DE
+	INC DE
+	INC DE
+	INC DE
+
+	call Num2Dec
+
+	; DE = screen address
+	LD E,(IY)
+	INC IY
+	LD D,(IY)
+	INC IY
+
+	POP IX ; IX = ptr to text
+	PUSH IY
+		CALL SPRITES_PRINT_TEXT
+	POP IY
+
+	PUSH IX
+	POP HL
+	INC HL
+
+	POP BC
+	DJNZ scoreloop
+
+
+nodisp
+	; Restore the sprite drawing for other parts of the game
+	LD HL,2*48 - 0x4000
+	LD (SCRWIDTH),HL
+
+	call SET_PAL
+
+	; Wait for key
+keyToMenu
+	INIT_KBD nothing, nothing, nothing, nothing, transitionOut, nothing
+.wfk
+	CALL process_input
+	JR .wfk
+
+	global nothing
+transitionOut
+	ld bc, 0x7F4B
+	ld a,4
+.black
+	out (c),a
+	out (c),c
+	dec a
+	jp P,.black
+
+	; Entry status : all inks set to the same color (white, black, or other)
+backToMenu
+
+
+	CRTC 1,48
+	CRTC 6,13
+	EI
+
+	; REG 7: 36 to 24
+	SYNC_VBL
+	CRTC 4,38+36-24-1
+	CRTC 7,24
+	HALT
+
+	; Happens during the VBL, should be ok
+	LD B,14
+	DJNZ $
+	CRTC 0,63+40-50
+	LD B,12
+	DJNZ $
+	CRTC 2,50
+	CRTC 0,63
+
+	HALT
+	SYNC_VBL
+	CRTC 4,38
+
+	global loadmenu
+loadmenu
+	; Mode 1
+	LD BC,0x7F8D
+	OUT (C),C
+
+
+	; Unpack the intro screen at $8000 again
+	LD DE,0x8080
+	LD HL,INTROSCR
+	CALL deexo
+
+	LD E,16
+	LD H,40
+	EXX
+	LD B, 1
+	EXX
+
+RASTERLOOP
+	SYNC_VBL
+
+	HALT
+	HALT
+	HALT
+
+	EXX
+	LD A,66
+	SUB B
+	SRA A
+	LD C,B
+	LD B,A
+	CALL delay
+	LD B,C
+	EXX
+
+	LD B,0x7F
+	XOR A
+	OUT (C),A
+	LD C,0x4B ; White
+	OUT (C),C
+
+	; also the border
+	OUT (C),E
+	OUT (C),C
+
+	INC A
+	OUT (C),A
+	LD C,0x54 ; Black
+	OUT (C),C
+	INC A
+	OUT (C),A
+	LD C,0x41 ; Grey
+	OUT (C),C
+	INC A
+	OUT (C),A
+	LD C,0x4F ; Pink
+	OUT (C),C
+
+	DEC H
+	JP Z,_restart
+
+	EXX
+	LD C,B
+	CALL delay
+	INC C
+	LD B,C
+	EXX
+
+	LD C,0x4B
+.white
+	OUT (C),C
+	DEC A
+	OUT (C),A
+	JR NZ, .white
+	OUT (C),C
+	OUT (C),E
+	OUT (C),C
+
+	JR RASTERLOOP
+
+nothing:
+	RET
+
+delay
+.plop
+	LD H,40
+.plip
+	DEC H
+	JR NZ,.plip
+	DJNZ .plop
+
+	RET
+
+	;Input: HL = number to convert, DE = location of string
+	;Output: 0-9 digits string at (DE)
+Num2Dec ld bc,-10000
+	call Num1
+	ld bc,-1000
+	call Num1
+	ld bc,-100
+	call Num1
+	ld c,-10
+	call Num1
+	ld c,b
+Num1 ld a, FONT16_ESPACE ; Le caractère juste avant 0 dans notre font.
+Num2 inc a
+	add hl,bc
+	jr c,Num2
+	sbc hl,bc
+	ld (de),a
+	inc de
+	ret
+
+SET_PAL
+	LD BC, 0x7F8D ;mode 1
+	OUT (C),C
+
+	; Set palette (do something nice ?)
+	LD A, 0x4B
+
+	LD C,16
+	OUT (C),C
+	OUT (C),A
+
+	LD C, 0
+	OUT (C),C
+	OUT (C),A
+	INC C
+	LD A,0x54
+	OUT (C),C
+	OUT (C),A
+	INC C
+	LD A,0x58
+	OUT (C),C
+	OUT (C),A
+	INC C
+	LD A,0x47
+	OUT (C),C
+	OUT (C),A
+	RET
+
+TEST_SCORE_DATA
+; The score value
+	word 2015
+; The player name
+	byte FONT16_M,FONT16_C,FONT16_ESPACE,FONT16_ESPACE
+; Extra space for the score as string
+	defs 5
+	byte 255 ; Null terminator
+
+SECOND_SCORE
+; The score value
+	word 1985
+; The player name
+	byte FONT16_F,FONT16_L,FONT16_Y,FONT16_ESPACE
+; Extra space for the score as string
+	defs 5
+	byte 255 ; Null terminator
+
+; The score value
+	word 1885
+; The player name
+	byte FONT16_D,FONT16_O,FONT16_C,FONT16_ESPACE
+; Extra space for the score as string
+	defs 5
+	byte 255 ; Null terminator
+
+; The score value
+	word 464
+; The player name
+	byte FONT16_P,FONT16_L,FONT16_K,FONT16_ESPACE
+; Extra space for the score as string
+	defs 5
+	byte 255 ; Null terminator
+
+; The score value
+lowest ; If you don't beat this, no high score for you!
+	word 64
+; The player name
+	byte FONT16_C,FONT16_E,FONT16_D,FONT16_ESPACE
+; Extra space for the score as string
+buffer
+	defs 5
+	byte 255 ; Null terminator
+
+the_end
+
+scraddress
+	word 0x8604 - 13 * 52
+	word 0x8604 - 9 * 52
+	word 0x8604 - 6 * 52
+	word 0x8604 - 3 * 52
+	word 0x8604
+
+
+INTROSCR
+	incbin obj/ZNXINTRO.exo
+
+

@@ -1,0 +1,188 @@
+	GLOBAL HOWTOPLAY_RUN
+
+	INCLUDE src/CPC.z80
+	INCLUDE keyboard.macros
+
+HOWTOPLAY_RUN
+	CALL SetupScreen
+	; On recopie le logo "how to play" dans la partie visible de l'écran
+
+	LD DE,0xD000 + 7 * 2 * 48
+	LD HL,0xC000 + 14 * 2 * 48
+	LD BC, 2 * 48 * 6
+	LDIR
+	LD DE,0xD800 + 7 * 2 * 48
+	LD HL,0xC800 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+	LD DE,0xE000 + 7 * 2 * 48
+	LD HL,0xD000 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+	LD DE,0xE800 + 7 * 2 * 48
+	LD HL,0xD800 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+	LD DE,0xF000 + 7 * 2 * 48
+	LD HL,0xE000 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+	LD DE,0xF800 + 7 * 2 * 48
+	LD HL,0xE800 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+
+	LD DE,0xC000 + 8 * 2 * 48
+	LD HL,0xF000 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+	LD DE,0xC800 + 8 * 2 * 48
+	LD HL,0xF800 + 14 * 2 * 48
+	LD BC,2 * 48 * 6
+	LDIR
+
+	; set the palette with a nice transition
+	CALL SetupScreen2
+
+	; Reset the page pointer so we can enter the help screen multiple times
+	LD HL,page1
+	LD (again+1),HL
+
+again
+	LD HL,page1
+	LD B,10
+
+line
+		LD A,0
+loop
+			LD C,(HL)
+			INC HL
+
+			PUSH AF
+			PUSH BC
+			PUSH HL
+				DEC B
+				CALL GridSprite
+			POP HL
+			POP BC
+			POP AF
+
+
+			INC A
+			CP 10
+		JR NZ,loop
+	DJNZ line
+
+keyToMenu
+	INIT_KBD nothing, nothing, nothing, nothing, nextpage, nothing
+.wfk
+	CALL process_input
+	SYNC_VBL
+	CALL PLY_Play
+	JR .wfk
+
+; ----------------------------------------
+
+nextpage:
+	LD HL,(again+1)
+	LD BC,100
+	ADD HL,BC
+	LD (again+1),HL
+	LD BC,page3+1
+	CCF
+	SBC HL,BC
+	JP NC,menu
+		; TODO write own routine to go back to menu, no CRTC transition should be done here
+		; (we are reusiing the one from high score)
+		; Maybe convert high score to 32K screen and avoid all CRTC transitions everywhere?
+	JR again
+
+menu
+	EI
+	ld bc, 0x7F4B
+	ld a,16
+.black
+	out (c),a
+	out (c),c
+	PUSH BC
+	PUSH AF
+	SYNC_VBL
+	HALT
+	CALL PLY_Play
+	HALT
+	POP AF
+	POP BC
+	dec a
+	jp P,.black
+
+	; Reset regs 6 and 7 to the correct values for menu
+	CRTC 6,13
+
+	; REG 7: 35 to 24
+	SYNC_VBL
+	CRTC 4,38+35-24
+	CRTC 7,24
+
+	CALL PLY_Stop
+	HALT
+	SYNC_VBL
+	CRTC 4,38
+
+	jp loadmenu
+
+; ----------------------------------------
+page1
+	DEFB 74,  0,  1,  3,  4,  4,  2,  0,  1, 74
+	DEFB 74,  2,  0,  1,  2,  3,  4,  0,  3, 74
+	DEFB 74,  1,  1,  4,  3,  0,  1,  3,  2, 74
+	DEFB 74,  0,  2,  1,  3,  4,  2,  4,  0, 74
+	DEFB 74,  3,  0,  3,  2,  1,  4,  0,  1, 74
+	DEFB 74,  2,  4,  1,  2,  0,  3,  2,  4, 74
+
+	; "Find rectangles with all 4 corners of the same color"
+	DEFB 67, 68, 69, 70, 70, 70, 70, 71, 72, 73
+	DEFB 57, 58, 59, 60, 61, 62, 63, 64, 65, 66
+	DEFB 47, 48, 49, 50, 51, 52, 53, 54, 55, 56
+	DEFB 40, 41, 42, 43, 43, 43, 43, 44, 45, 46
+
+
+;---
+	DEFB 74,  0,  1,  3,  4,  4,  2,  0,  1, 74
+	DEFB 74,  2, 20,  1,  2,  3,  4, 10,  3, 74
+	DEFB 74,  1,  1,  4,  3,  0,  1,  3,  2, 74
+	DEFB 74,  0,  2,  1,  3,  4,  2,  4,  0, 74
+	DEFB 74,  3, 10,  3,  2,  1,  4, 15,  1, 74
+	DEFB 74,  2,  4,  1,  2,  0,  3,  2,  4, 74
+
+	; "Find rectangles with all 4 corners of the same color"
+	DEFB 67, 68, 69, 70, 70, 70, 70, 71, 72, 73
+	DEFB 57, 58, 59, 60, 61, 62, 63, 64, 65, 66
+	DEFB 47, 48, 49, 50, 51, 52, 53, 54, 55, 56
+	DEFB 40, 41, 42, 43, 43, 43, 43, 44, 45, 46
+page2
+	DEFB 74,  0,  1,  3,  4,  4,  2,  0,  1, 74
+	DEFB 74,  2, 30, 11, 12, 13, 14, 10,  3, 74
+	DEFB 74,  1, 11, 14, 13, 10, 11, 13,  2, 74
+	DEFB 74,  0, 12, 11, 13, 14, 12, 14,  0, 74
+	DEFB 74,  3, 10, 13, 12, 11, 14, 30,  1, 74
+	DEFB 74,  2,  4,  1,  2,  0,  3,  2,  4, 74
+
+	; "You will erase all the tiles inside them and collect points"
+	DEFB 67, 68, 69, 70, 70, 70, 70, 71, 72, 73
+	DEFB 57, 83, 84, 85, 86, 87, 88, 89, 90, 66
+	DEFB 47, 75, 76, 77, 78, 79, 80, 81, 82, 56
+	DEFB 40, 41, 42, 43, 43, 43, 43, 44, 45, 46
+
+page3
+	DEFB 74,  0,  1,  3,  4,  4,  2,  0,  1, 74
+	DEFB 74,  2,  2,  0,  3,  1,  4,  1,  3, 74
+	DEFB 74,  1,  4,  3,  2,  3,  2,  3,  2, 74
+	DEFB 74,  0,  3,  2,  4,  2,  3,  2,  0, 74
+	DEFB 74,  3,  1,  1,  0,  4,  0,  0,  1, 74
+	DEFB 74,  2,  4,  1,  2,  0,  3,  2,  4, 74
+
+	; "How many can you spot before the time runs out ?"
+	DEFB 67, 68, 69, 70, 70, 70, 70, 71, 72, 73
+	DEFB 57, 99,100,101,102,103,104,105,106, 66
+	DEFB 47, 91, 92, 93, 94, 95, 96, 97, 98, 56
+	DEFB 40, 41, 42, 43, 43, 43, 43, 44, 45, 46

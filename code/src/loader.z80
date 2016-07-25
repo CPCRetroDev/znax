@@ -1,0 +1,181 @@
+;ZNAX
+;Code by PulkoMandy
+;Shinra - May 2008
+
+	GLOBAL _start
+	INCLUDE src/CPC.z80
+	
+;Code principal
+_start
+
+;Config de la palette
+	SYS_SETINK 0,0
+	SYS_SETINK 1,0
+	SYS_SETINK 2,0
+	SYS_SETINK 3,0
+	SYS_SETBORDER 0
+
+;Config du mode écran : MODE 1
+	LD A,1
+	CALL SCR_SET_MODE
+	
+;On met une jolie basse hard
+	SYS_PSG 11,53
+	SYS_PSG 12,0
+	SYS_PSG 2,3405%256
+	SYS_PSG 3,3405/256
+	SYS_PSG 13,10
+	SYS_PSG 9,16 ;VolB
+	SYS_PSG 7,%00111101 ;Mixer
+	
+;Config du CRTC pour l'overscan 16k de la page d'intro
+
+	DI
+	;On nettoie les interruptions
+	LD HL,(0x38)
+	LD (saveint),HL
+
+	LD HL,0xC9FB ;"EI RET"
+	LD (0x38),HL
+	EI
+	
+	; CRTC VERTICAL TRANSITION -------------------------
+	; R7: 30 > 24
+	CALL MC_WAIT_FLYBACK
+	CRTC 4,38+30-24
+	CRTC 7,24
+	HALT
+
+		; CRTC HORIZONTAL TRANSITION --------------------------
+		; R2: 46 > 50
+
+		LD B,14
+		DJNZ $
+
+		CRTC 0,63+46-50 ; 18 NOPs
+
+		LD B,12
+		DJNZ $
+
+		CRTC 2,50       ; 18 NOPs = 36
+		CRTC 0,63
+		; CRTC TRANSITION --------------------------
+
+	HALT
+	CALL MC_WAIT_FLYBACK
+	CRTC 4,38
+	; CRTC VERTICAL TRANSITION -------------------------
+
+	HALT
+
+	CRTC 1,48
+	CRTC 6,13
+
+	DI
+
+;Affichage de l'image (décompactage en &C000)
+	LD HL,IMGINTRO
+	LD DE,0xC000
+	CALL deexo
+
+; Restore interrupts as the OS may still need them
+	LD HL,(saveint)
+	LD (0x38),HL
+
+;Fondu de palette noir > logo
+.mod	LD HL,Fade
+	LD D,4
+.ink 
+	LD A,(HL)
+	CP 27
+	JR Z, lasuite
+	LD B,A
+	LD C,A
+	LD A,D
+	DEC A
+	PUSH HL
+	PUSH DE
+	CALL SCR_SET_INK
+	POP DE
+	POP HL
+	INC HL
+	DEC D
+	JR NZ,.ink ; si pas fini passe au suivant
+
+	;L'encre 4 est aussi de la couleur du border
+	DEC HL
+	LD A,(HL)
+	LD B,A
+	LD C,A
+	CALL SCR_SET_BORDER
+	
+	CALL MC_WAIT_FLYBACK
+	
+	ld HL,(.mod+1)
+	LD BC,4
+	ADD HL,BC
+	LD (.mod+1),HL
+	JR .mod
+lasuite
+
+;INIT disquette
+	INITDISK
+
+;Chargement de toutes les données (écran de jeu, écran de menu, sprites, musique(s), ...
+
+; Avoid "press play then any key" message
+	LD A,1
+	CALL 0xBC6B
+
+;Charge le menu avec tout son bazar (crunché)
+	LD HL,SPR_TEST
+	LD DE,0x8000 ;Tampon pour le header
+	LD B,SPR_TEST_LNG
+	CALL CAS_IN_OPEN
+	JR NC,ERR
+
+; Kill interrupts for good.
+	DI
+	LD HL,0xC9FB ;"EI RET"
+	LD (0x38),HL
+
+	LD HL,0x300 ;Destination
+	CALL CAS_IN_DIRECT
+	JR NC,ERR
+	PUSH HL
+	CALL CAS_IN_CLOSE
+	JR NC,ERR
+	POP HL
+
+;Affichage du menu
+	JP (HL)
+	
+;Routine appellée en cas d'erreur lors du chargement d'un fichier
+ERR
+	DI
+	LD BC, 0x7F00
+	LD A,0x4C ; RED
+	OUT (C),C
+	OUT (C),A
+	JR $
+	
+;Données et variables
+
+;La palette de fondu
+Fade	BYTE 0, 0, 0, 0
+	BYTE 0, 0, 0, 4
+	BYTE 0, 0, 0, 9
+	BYTE 4, 0, 0, 13
+	BYTE 9, 4, 0, 17
+	BYTE 13,9, 0, 22
+	BYTE 17,13,0, 26
+	BYTE 27
+
+SPR_TEST BYTE "ZNAX.BIN"
+SPR_TEST_LNG EQU $ - SPR_TEST
+
+;Inclusion de l'image (compressée)
+IMGINTRO INCBIN obj/ZNXINTRO.exo
+
+saveint
+	defs 2

@@ -1,0 +1,59 @@
+
+Files:
+  loader.o:  .text 9000(a87) hex
+  exomizer.o:  .text 9a87(bf) hex
+
+
+Section mapping (numbers in hex):
+------------------------------
+  00009000 .text  (size b46)
+           00009000 - 00009a87 loader.o(.text)
+           00009a87 - 00009b46 exomizer.o(.text)
+
+
+Symbols of .text:
+  MC_SOUND_REGISTER: local abs, value 0xffffbd34, size 0
+  SPR_TEST: local reloc, value 0x9170, size 0
+  saveint: local reloc, value 0x9a85, size 0
+  CAS_IN_DIRECT: local abs, value 0xffffbc83, size 0
+  KM_RESET: local abs, value 0xffffbb03, size 0
+  Fade: local reloc, value 0x9153, size 0
+  SPR_TEST_LNG: local abs, value 0x8, size 0
+   *tmp000000000*: local reloc, value 0x9178, size 0
+   *current pc dummy*: local reloc, value 0x9151, size 0
+   _start ink: local reloc, value 0x90e0, size 0
+  SCR_SET_INK: local abs, value 0xffffbc32, size 0
+  CAS_IN_OPEN: local abs, value 0xffffbc77, size 0
+  IMGINTRO: local reloc, value 0x9178, size 0
+  PPI_A: local abs, value 0xfffff400, size 0
+  GA: local abs, value 0x7f00, size 0
+  ERR: local reloc, value 0x9147, size 0
+  SCR_SET_BORDER: local abs, value 0xffffbc38, size 0
+  KM_WAIT_CHAR: local abs, value 0xffffbb06, size 0
+  PPI_C: local abs, value 0xfffff600, size 0
+   _start mod: local reloc, value 0x90db, size 0
+  _start: global reloc, value 0x9000, size 0
+  lasuite: local reloc, value 0x910a, size 0
+  CAS_IN_CLOSE: local abs, value 0xffffbc7a, size 0
+  SCR_SET_MODE: local abs, value 0xffffbc0e, size 0
+  CRTC_REG: local abs, value 0xffffbc00, size 0
+  MC_WAIT_FLYBACK: local abs, value 0xffffbd19, size 0
+  CRTC_VAL: local abs, value 0xffffbd00, size 0
+  exo_gettingbits: local reloc, value 0x9b2e, size 0
+  exo_getbits: local reloc, value 0x9b2b, size 0
+  exo_get4bits: local reloc, value 0x9a9e, size 0
+  exo_mapbasebits: local abs, value 0x100, size 0
+  exo_lenght: local reloc, value 0x9b0a, size 0
+  exo_literalcopy: local reloc, value 0x9add, size 0
+  deexo: global reloc, value 0x9a87, size 0
+  exo_mainloop: local reloc, value 0x9ac1, size 0
+  exo_node1: local reloc, value 0x9a9c, size 0
+  exo_getpair: local reloc, value 0x9b12, size 0
+  exo_initbits: local reloc, value 0x9a92, size 0
+  exo_goforit: local reloc, value 0x9afb, size 0
+  exo_setbit: local reloc, value 0x9aae, size 0
+  exo_getbit: local reloc, value 0x9b39, size 0
+  exo_continue: local reloc, value 0x9ae1, size 0
+  exo_getindex: local reloc, value 0x9aca, size 0
+
+Linker symbols:
